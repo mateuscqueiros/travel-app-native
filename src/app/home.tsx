@@ -1,7 +1,7 @@
-import SortCategories from "@/components/SortCategories";
-import { getDestinations } from "@/features/destinations";
-import { FontAwesome } from "@expo/vector-icons";
-import { useEffect } from "react";
+import SortCategories from '@/components/SortCategories';
+import { getDestinations } from '@/features/destinations';
+import { FontAwesome } from '@expo/vector-icons';
+import { useEffect } from 'react';
 import {
   Image,
   Platform,
@@ -11,28 +11,27 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-} from "react-native";
-import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-import { Categories, Destinations } from "../components";
+} from 'react-native';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { Categories, Destinations } from '../components';
 
-const ios = Platform.OS == "ios";
-const topMargin = ios ? "pt-3" : "pt-10";
+const ios = Platform.OS == 'ios';
+const topMargin = ios ? 'pt-3' : 'pt-10';
 
 export default function HomeScreen() {
-  console.log("render");
+  console.log('render');
   useEffect(() => {
-    console.log("useEffect");
-    fetch("http://10.0.2.2:3001/destinations").then((a) => console.log("a", a));
+    console.log('useEffect');
     getDestinations()
       .then((data) => {
-        console.log("ok");
+        console.log('ok');
         console.log(data);
       })
       .catch((err) => {
-        console.log("error");
+        console.log('error');
         console.log(JSON.stringify(err));
       })
-      .finally(() => console.log("finally"));
+      .finally(() => console.log('finally'));
   }, []);
   return (
     <SafeAreaView className="flex-1 bg-white">
@@ -47,7 +46,7 @@ export default function HomeScreen() {
           </Text>
           <TouchableOpacity>
             <Image
-              source={require("../assets/images/avatar.png")}
+              source={require('../assets/images/avatar.png')}
               style={{ height: wp(12), width: wp(12) }}
             />
           </TouchableOpacity>
@@ -59,7 +58,7 @@ export default function HomeScreen() {
             <FontAwesome name="search" size={20} strokeWidth={3} color="gray" />
             <TextInput
               placeholder="Search destination"
-              placeholderTextColor={"gray"}
+              placeholderTextColor={'gray'}
               className="flex-1 text-base mb-1 pl-1 tracking-wider"
             />
           </View>

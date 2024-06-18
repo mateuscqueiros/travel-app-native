@@ -1,7 +1,7 @@
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-import { categoriesData } from "../constants";
 import { theme } from "../themes";
+import { categoriesData } from "../values";
 
 export function Categories() {
   return (

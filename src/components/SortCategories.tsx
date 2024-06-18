@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-import { sortCategoryData } from "../constants";
 import { theme } from "../themes";
+import { sortCategoryData } from "../values";
 
 export default function SortCategories() {
   const [activeSort, setActiveSort] = useState("Popular");

@@ -8,15 +8,13 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
-import { destinationData } from "../constants";
+import { destinationData } from "../values";
 
 export type DestinationCardProps = {
   item: DestinationType;
 };
 
 export function Destinations() {
-  const router = useRouter();
-
   return (
     <View className="flex-wrap mx-4 flex-row justify-between pb-10">
       {destinationData.map((item, index) => {

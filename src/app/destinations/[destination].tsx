@@ -1,4 +1,4 @@
-import { destinationData } from "@/constants";
+import { destinationData } from "@/values";
 import { FontAwesome } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";

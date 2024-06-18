@@ -1,5 +1,7 @@
 import SortCategories from "@/components/SortCategories";
+import { getDestinations } from "@/features/destinations";
 import { FontAwesome } from "@expo/vector-icons";
+import { useEffect } from "react";
 import {
   Image,
   Platform,
@@ -17,6 +19,21 @@ const ios = Platform.OS == "ios";
 const topMargin = ios ? "pt-3" : "pt-10";
 
 export default function HomeScreen() {
+  console.log("render");
+  useEffect(() => {
+    console.log("useEffect");
+    fetch("http://10.0.2.2:3001/destinations").then((a) => console.log("a", a));
+    getDestinations()
+      .then((data) => {
+        console.log("ok");
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log("error");
+        console.log(JSON.stringify(err));
+      })
+      .finally(() => console.log("finally"));
+  }, []);
   return (
     <SafeAreaView className="flex-1 bg-white">
       <ScrollView showsVerticalScrollIndicator={false} className={topMargin}>

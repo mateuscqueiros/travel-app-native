@@ -1,9 +1,22 @@
+import { getCategories } from "@/features/categories/axios";
+import { CategoryType } from "@/types";
+import { IMAGE_SOURCES } from "@/values";
+import { useEffect, useState } from "react";
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { theme } from "../themes";
-import { categoriesData } from "../values";
 
 export function Categories() {
+  const [categories, setCategories] = useState<CategoryType[]>([]);
+
+  useEffect(() => {
+    getCategories()
+      .then((data) => setCategories(data))
+      .catch((err) => console.log(err));
+  }, []);
+
+  console.log(categories);
+
   return (
     <View className="space-y-5">
       <View className=" mx-5 flex-row justify-between items-center">
@@ -24,18 +37,21 @@ export function Categories() {
         className="space-x-4"
         showsHorizontalScrollIndicator={false}
       >
-        {categoriesData.map((cat, index) => {
+        {categories.map((category, index) => {
+          const image = IMAGE_SOURCES.find((i) => i.id === category.imageId);
           return (
             <TouchableOpacity
               key={index}
               className="flex items-center space-y-2"
             >
               <Image
-                source={cat.image}
+                source={image?.source}
                 className="rounded-3xl"
                 style={{ width: wp(20), height: wp(19) }}
               />
-              <Text className="text-neutral-700 font-medium">{cat.title}</Text>
+              <Text className="text-neutral-700 font-medium">
+                {category.title}
+              </Text>
             </TouchableOpacity>
           );
         })}

@@ -32,13 +32,13 @@ export default function WelcomeScreen() {
               className="text-white font-bold text-5xl"
               style={{ fontSize: wp(10) }}
             >
-              Traveling made easy
+              Facilitando as viagens
             </Text>
             <Text
               style={{ fontSize: wp(4) }}
               className="text-neutral-200 font-medium"
             >
-              Experience the world's best adventure around the world with us
+              Vivencie as melhores aventuras do mundo conosco!
             </Text>
           </View>
 
@@ -50,7 +50,7 @@ export default function WelcomeScreen() {
               style={{ fontSize: wp(5.5) }}
               className=" text-white font-bold"
             >
-              Let's Go
+              Vamos lá
             </Text>
           </TouchableOpacity>
         </View>

@@ -21,23 +21,18 @@ export default function DestinationScreen() {
     undefined,
   );
 
-  const { id } = useLocalSearchParams<{
-    id: string;
-  }>();
+  const { id } = useLocalSearchParams<{ id: string }>();
 
   const destinationId = Number(id);
 
   const getDestinationData = () =>
     getDestination(destinationId)
       .then((data) => setDestination(data))
-      .catch((err) => console.log(err))
-      .finally(() => console.log("finally"));
+      .catch((err) => console.log(err));
 
   useEffect(() => {
     getDestinationData();
   }, []);
-
-  useEffect(() => {}, []);
 
   const router = useRouter();
 

@@ -1,5 +1,7 @@
-import SortCategories from "@/components/SortCategories";
+import FilterTags from "@/components/FilterTags";
+import { DestinationsList } from "@/features/destinations/components/List";
 import { FontAwesome } from "@expo/vector-icons";
+import { useState } from "react";
 import {
   Image,
   Platform,
@@ -11,12 +13,16 @@ import {
   View,
 } from "react-native";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-import { Categories, Destinations } from "../components";
+import { Categories } from "../components";
 
 const ios = Platform.OS == "ios";
 const topMargin = ios ? "pt-3" : "pt-10";
 
 export default function HomeScreen() {
+  const [search, setSearch] = useState("");
+  const [activeCategory, setActiveCategory] = useState<number | null>(null);
+  const [activeTag, setActiveTag] = useState<number | null>(0);
+
   return (
     <SafeAreaView className="flex-1 bg-white">
       <ScrollView showsVerticalScrollIndicator={false} className={topMargin}>
@@ -26,7 +32,7 @@ export default function HomeScreen() {
             style={{ fontSize: wp(7) }}
             className="font-bold text-neutral-700"
           >
-            Let's Discover
+            Descubra
           </Text>
           <TouchableOpacity>
             <Image
@@ -41,26 +47,32 @@ export default function HomeScreen() {
           <View className="flex-row items-center bg-neutral-100 rounded-full p-4 space-x-2 pl-6">
             <FontAwesome name="search" size={20} strokeWidth={3} color="gray" />
             <TextInput
-              placeholder="Search destination"
-              placeholderTextColor={"gray"}
-              className="flex-1 text-base mb-1 pl-1 tracking-wider"
+              value={search}
+              onChangeText={setSearch}
+              placeholder="Buscar um destino"
+              placeholderTextColor="gray"
+              className="flex-1 text-base pl-1 tracking-wider"
             />
           </View>
         </View>
 
-        {/* categarioes */}
         <View className="mb-4">
-          <Categories />
+          <Categories
+            activeCategory={activeCategory}
+            setActiveCategory={setActiveCategory}
+          />
         </View>
 
-        {/* sort categarioes */}
         <View className="mb-4">
-          <SortCategories />
+          <FilterTags activeTag={activeTag} setActiveTag={setActiveTag} />
         </View>
 
-        {/* destinations */}
         <View>
-          <Destinations />
+          <DestinationsList
+            search={search}
+            activeCategory={activeCategory}
+            activeTag={activeTag}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>

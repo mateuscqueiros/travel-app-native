@@ -6,7 +6,15 @@ import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { theme } from "../themes";
 
-export function Categories() {
+export type CategoriesProps = {
+  activeCategory: number | null;
+  setActiveCategory: (value: number | null) => void;
+};
+
+export function Categories({
+  activeCategory,
+  setActiveCategory,
+}: CategoriesProps) {
   const [categories, setCategories] = useState<CategoryType[]>([]);
 
   useEffect(() => {
@@ -14,8 +22,6 @@ export function Categories() {
       .then((data) => setCategories(data))
       .catch((err) => console.log(err));
   }, []);
-
-  console.log(categories);
 
   return (
     <View className="space-y-5">
@@ -39,16 +45,23 @@ export function Categories() {
       >
         {categories.map((category, index) => {
           const image = IMAGE_SOURCES.find((i) => i.id === category.imageId);
+          const isActive = category.imageId === activeCategory;
+
           return (
             <TouchableOpacity
               key={index}
-              className="flex items-center space-y-2"
+              className={`flex items-center space-y-2`}
+              onPress={() => setActiveCategory(category.imageId)}
             >
-              <Image
-                source={image?.source}
-                className="rounded-3xl"
-                style={{ width: wp(20), height: wp(19) }}
-              />
+              <View
+                className={` border-4 rounded-3xl border-transparent ${isActive ? "bg-orange-500 border-orange-500" : ""}`}
+              >
+                <Image
+                  source={image?.source}
+                  className={`rounded-3xl`}
+                  style={{ width: wp(20), height: wp(19) }}
+                />
+              </View>
               <Text className="text-neutral-700 font-medium">
                 {category.title}
               </Text>

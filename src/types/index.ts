@@ -1,3 +1,8 @@
+export type TagType = {
+  id: number
+  title: string,
+}
+
 export type CategoryType = {
   title: string
   imageId: number
@@ -14,5 +19,7 @@ export type DestinationType = {
   longDescription: string
   imageId: number
   isFavorite: boolean
+  categories: number[]
+  tags: number[]
 }
 

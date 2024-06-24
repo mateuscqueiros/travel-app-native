@@ -19,36 +19,10 @@ export type DestinationCardProps = {
   onChangeFavorite?: () => void;
 };
 
-export function Destinations() {
-  const [destinations, setDestinations] = useState<DestinationType[]>([]);
-
-  const getDestinationData = () =>
-    getDestinations()
-      .then((data) => setDestinations(data))
-      .catch((err) => console.log(err));
-
-  useFocusEffect(
-    useCallback(() => {
-      getDestinationData();
-    }, []),
-  );
-
-  return (
-    <View className="flex-wrap mx-4 flex-row justify-between pb-10">
-      {destinations.map((item, index) => {
-        return (
-          <DestinationCard
-            onChangeFavorite={getDestinationData}
-            item={item}
-            key={index}
-          />
-        );
-      })}
-    </View>
-  );
-}
-
-const DestinationCard = ({ item, onChangeFavorite }: DestinationCardProps) => {
+export function DestinationCard({
+  item,
+  onChangeFavorite,
+}: DestinationCardProps) {
   const router = useRouter();
 
   const image = IMAGE_SOURCES.find((i) => i.id === item.imageId);
@@ -104,4 +78,4 @@ const DestinationCard = ({ item, onChangeFavorite }: DestinationCardProps) => {
       </Text>
     </TouchableOpacity>
   );
-};
+}

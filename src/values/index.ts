@@ -53,7 +53,7 @@ export const TAG_DATA: TagType[] = [{
   title: 'Mais',
 }];
 
-export const categoriesData: CategoryType[] = [
+export const CATEGORIES_DATA: CategoryType[] = [
   {
     title: "Ocean",
     imageId: 4

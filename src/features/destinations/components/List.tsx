@@ -1,10 +1,14 @@
-import { match } from "@/lib/regex";
+import { Loading } from "@/components/Loading";
 import { DestinationType } from "@/types";
 import { useFocusEffect } from "expo-router";
 import { useCallback, useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { getDestinations } from "../axios";
-import { DestinationCard } from "./Card";
+import {
+  matchCategoryDestinations,
+  matchSearchDestinations,
+  matchTagDestinations,
+} from "../lib";
 
 export type DestinationListProps = {
   search?: string;
@@ -20,49 +24,25 @@ export function DestinationsList({
   const [allDestinations, setAllDestinations] = useState<DestinationType[]>([]);
   const [displayedDestinations, setDisplayedDestinations] =
     useState<DestinationType[]>(allDestinations);
+  const [loading, setLoading] = useState<boolean>(true);
 
-  const getDestinationData = () =>
+  const getDestinationData = () => {
+    setLoading(true);
     getDestinations()
       .then((data) => setAllDestinations(data))
-      .catch((err) => console.log(err));
-
-  const matchSearchDestinations = (
-    destinations: DestinationType[],
-    search: string | undefined,
-  ) => {
-    if (search && search !== "") {
-      return destinations.filter((d) => match(search, d.title));
-    } else return destinations;
-  };
-
-  const matchCategoryDestinations = (
-    destinations: DestinationType[],
-    categoryId: number | null,
-  ) => {
-    if (categoryId !== null) {
-      return destinations.filter((d) => d.categories.includes(categoryId));
-    } else return destinations;
-  };
-
-  const matchTagDestinations = (
-    destinations: DestinationType[],
-    tagId: number | null,
-  ) => {
-    if (tagId === 0) return destinations;
-    if (tagId !== null) {
-      return destinations.filter((d) => d.tags.includes(tagId));
-    } else return destinations;
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
   };
 
   useEffect(() => {
-    const filterSearch = matchSearchDestinations(allDestinations, search);
-    const filterCategories = matchCategoryDestinations(
-      filterSearch,
+    const searchFilter = matchSearchDestinations(allDestinations, search);
+    const categoryFilter = matchCategoryDestinations(
+      searchFilter,
       activeCategory,
     );
-    const filterTags = matchTagDestinations(filterCategories, activeTag);
+    const tagFilter = matchTagDestinations(categoryFilter, activeTag);
 
-    setDisplayedDestinations(filterTags);
+    setDisplayedDestinations(tagFilter);
   }, [allDestinations, search, activeCategory, activeTag]);
 
   useFocusEffect(
@@ -73,20 +53,7 @@ export function DestinationsList({
 
   return (
     <View className="flex-wrap mx-4 flex-row justify-between pb-10">
-      {displayedDestinations.length === 0 && (
-        <View className="flex items-center w-full">
-          <Text className="text-lg">Sem correspondências para a pesquisa</Text>
-        </View>
-      )}
-      {displayedDestinations.map((item, index) => {
-        return (
-          <DestinationCard
-            onChangeFavorite={getDestinationData}
-            item={item}
-            key={index}
-          />
-        );
-      })}
+      <Loading />
     </View>
   );
 }

@@ -2,13 +2,14 @@ import { Loading } from "@/components/Loading";
 import { DestinationType } from "@/types";
 import { useFocusEffect } from "expo-router";
 import { useCallback, useEffect, useState } from "react";
-import { View } from "react-native";
+import { Text, View } from "react-native";
 import { getDestinations } from "../axios";
 import {
   matchCategoryDestinations,
   matchSearchDestinations,
   matchTagDestinations,
 } from "../lib";
+import { DestinationCard } from "./Card";
 
 export type DestinationListProps = {
   search?: string;
@@ -53,7 +54,21 @@ export function DestinationsList({
 
   return (
     <View className="flex-wrap mx-4 flex-row justify-between pb-10">
-      <Loading />
+      {loading && <Loading />}
+      {!loading && displayedDestinations.length === 0 && (
+        <View className="flex items-center w-full">
+          <Text className="text-lg">Sem correspondências para a pesquisa</Text>
+        </View>
+      )}
+      {displayedDestinations.map((item, index) => {
+        return (
+          <DestinationCard
+            onChangeFavorite={getDestinationData}
+            item={item}
+            key={index}
+          />
+        );
+      })}
     </View>
   );
 }

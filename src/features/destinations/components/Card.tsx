@@ -1,18 +1,14 @@
-import {
-  changeFavoriteDestination,
-  getDestinations,
-} from "@/features/destinations";
-import { DestinationType } from "@/types";
-import { IMAGE_SOURCES } from "@/values";
-import { FontAwesome } from "@expo/vector-icons";
-import { LinearGradient } from "expo-linear-gradient";
-import { useFocusEffect, useRouter } from "expo-router";
-import { useCallback, useState } from "react";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { changeFavoriteDestination } from '@/features/destinations';
+import { DestinationType } from '@/types';
+import { IMAGE_SOURCES } from '@/values';
+import { FontAwesome } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
+import { useRouter } from 'expo-router';
+import { Image, Text, TouchableOpacity } from 'react-native';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
-} from "react-native-responsive-screen";
+} from 'react-native-responsive-screen';
 
 export type DestinationCardProps = {
   item: DestinationType;
@@ -40,7 +36,7 @@ export function DestinationCard({
       />
 
       <LinearGradient
-        colors={["transparent", "rgba(0,0,0,0.8)"]}
+        colors={['transparent', 'rgba(0,0,0,0.8)']}
         style={{
           width: wp(44),
           height: hp(15),
@@ -61,7 +57,7 @@ export function DestinationCard({
             .catch((err) => console.log(err));
         }}
         className="absolute top-1 p-3 right-3 rounded-full"
-        style={{ backgroundColor: "rgba(255, 255, 255, 0.4)" }}
+        style={{ backgroundColor: 'rgba(255, 255, 255, 0.4)' }}
       >
         {item.isFavorite ? (
           <FontAwesome name="heart" size={wp(5)} color="#fa6868" />

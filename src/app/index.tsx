@@ -1,10 +1,10 @@
-import { LinearGradient } from "expo-linear-gradient";
-import { useRouter } from "expo-router";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { LinearGradient } from 'expo-linear-gradient';
+import { useRouter } from 'expo-router';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
-} from "react-native-responsive-screen";
+} from 'react-native-responsive-screen';
 
 export default function WelcomeScreen() {
   const router = useRouter();
@@ -14,14 +14,14 @@ export default function WelcomeScreen() {
       <View className="flex-1 flex justify-end">
         {/* backgroud img */}
         <Image
-          source={require("../assets/images/welcome.png")}
+          source={require('../assets/images/welcome.png')}
           className="h-full w-full absolute"
         />
 
         {/* content */}
         <View className="p-5 pb-10 space-y-8">
           <LinearGradient
-            colors={["transparent", "rgba(3,105,161,0.8)"]}
+            colors={['transparent', 'rgba(3,105,161,0.8)']}
             style={{ width: wp(100), height: hp(60) }}
             start={{ x: 0.5, y: 0 }}
             end={{ x: 0.5, y: 1 }}
@@ -43,12 +43,12 @@ export default function WelcomeScreen() {
           </View>
 
           <TouchableOpacity
-            onPress={() => router.push("home")}
+            onPress={() => router.push('home')}
             className="bg-orange-500 mx-auto p-3 px-12 rounded-full"
           >
             <Text
               style={{ fontSize: wp(5.5) }}
-              className=" text-white font-bold"
+              className="text-white font-bold"
             >
               Vamos lá
             </Text>

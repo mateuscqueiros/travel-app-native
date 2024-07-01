@@ -1,10 +1,10 @@
-import { getCategories } from "@/features/categories/axios";
-import { CategoryType } from "@/types";
-import { IMAGE_SOURCES } from "@/values";
-import { useEffect, useState } from "react";
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
-import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-import { theme } from "../themes";
+import { getCategories } from '@/features/categories';
+import { CategoryType } from '@/types';
+import { IMAGE_SOURCES } from '@/values';
+import { useEffect, useState } from 'react';
+import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { theme } from '../themes';
 
 export type CategoriesProps = {
   activeCategory: number | null;
@@ -54,7 +54,9 @@ export function Categories({
               onPress={() => setActiveCategory(category.imageId)}
             >
               <View
-                className={` border-4 rounded-3xl border-transparent ${isActive ? "bg-orange-500 border-orange-500" : ""}`}
+                className={` border-4 rounded-3xl border-transparent ${
+                  isActive ? 'bg-orange-500 border-orange-500' : ''
+                }`}
               >
                 <Image
                   source={image?.source}

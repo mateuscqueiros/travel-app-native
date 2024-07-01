@@ -1,42 +1,47 @@
-import FilterTags from "@/components/FilterTags";
-import { DestinationsList } from "@/features/destinations/components/List";
-import { FontAwesome } from "@expo/vector-icons";
-import { useState } from "react";
+import FilterTags from '@/components/FilterTags';
+import { DestinationsList } from '@/features/destinations/components/List';
+import { FontAwesome } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
+import { useState } from 'react';
 import {
   Image,
-  Platform,
   SafeAreaView,
   ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
   View,
-} from "react-native";
-import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-import { Categories } from "../components";
+} from 'react-native';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { Categories } from '../components';
 
-const ios = Platform.OS == "ios";
-const topMargin = ios ? "pt-3" : "pt-10";
+// const ios = Platform.OS == 'ios';
+// const topMargin = ios ? 'pt-3' : 'pt-3';
 
 export default function HomeScreen() {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [activeCategory, setActiveCategory] = useState<number | null>(null);
   const [activeTag, setActiveTag] = useState<number | null>(0);
+  const router = useRouter();
+
+  // console.log(
+  //   StatusBar.currentHeight && Math.floor((StatusBar.currentHeight + 5) / 4)
+  // );
 
   return (
     <SafeAreaView className="flex-1 bg-white">
-      <ScrollView showsVerticalScrollIndicator={false} className={topMargin}>
+      <ScrollView showsVerticalScrollIndicator={false} className="pt-3">
         {/* avatar */}
-        <View className="mx-5 flex-row justify-between itens-center mb-10">
+        <View className="mx-5 flex-row justify-between itens-center mb-10 pt-14">
           <Text
             style={{ fontSize: wp(7) }}
             className="font-bold text-neutral-700"
           >
             Descubra
           </Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push('account')}>
             <Image
-              source={require("../assets/images/avatar.png")}
+              source={require('../assets/images/avatar.png')}
               style={{ height: wp(12), width: wp(12) }}
             />
           </TouchableOpacity>

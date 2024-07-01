@@ -1,24 +1,24 @@
 import {
   changeFavoriteDestination,
   getDestination,
-} from "@/features/destinations";
-import { DestinationType } from "@/types";
-import { IMAGE_SOURCES } from "@/values";
-import { Feather, FontAwesome } from "@expo/vector-icons";
-import { useLocalSearchParams, useRouter } from "expo-router";
-import { StatusBar } from "expo-status-bar";
-import { useEffect, useState } from "react";
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+} from '@/features/destinations';
+import { DestinationType } from '@/types';
+import { IMAGE_SOURCES } from '@/values';
+import { Feather, FontAwesome } from '@expo/vector-icons';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
+import { useEffect, useState } from 'react';
+import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
-} from "react-native-responsive-screen";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { theme } from "../../themes";
+} from 'react-native-responsive-screen';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { theme } from '../../themes';
 
 export default function DestinationScreen() {
   const [destination, setDestination] = useState<DestinationType | undefined>(
-    undefined,
+    undefined
   );
 
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -54,14 +54,18 @@ export default function DestinationScreen() {
       <SafeAreaView className="pt-5 flex-row justify-between items-center w-full absolute">
         <TouchableOpacity
           onPress={() => router.back()}
-          style={{ backgroundColor: "rgba(255, 255, 255, 0.5)" }}
-          className="p-2 ml-4 rounded-full"
+          style={{
+            backgroundColor: 'rgba(255, 255, 255, 0.5)',
+            width: 45,
+            height: 45,
+          }}
+          className="pr-1 ml-4 rounded-full flex items-center justify-center"
         >
           <FontAwesome
             name="chevron-left"
             size={wp(7)}
             strokeWidth={4}
-            color={"white"}
+            color={'white'}
           />
         </TouchableOpacity>
 
@@ -73,15 +77,14 @@ export default function DestinationScreen() {
               })
               .catch((err) => console.log(err));
           }}
-          style={{ backgroundColor: "rgba(255, 255, 255, 0.5)" }}
+          style={{ backgroundColor: 'rgba(255, 255, 255, 0.5)' }}
           className="p-2 mr-4 rounded-full"
         >
-          <FontAwesome
-            name="heart"
-            size={wp(7)}
-            strokeWidth={4}
-            color={destination.isFavorite ? "#fa6868" : "white"}
-          />
+          {destination.isFavorite ? (
+            <FontAwesome name="heart" size={wp(7)} color={'#fa6868'} />
+          ) : (
+            <FontAwesome name="heart-o" size={wp(7)} color="white" />
+          )}
         </TouchableOpacity>
       </SafeAreaView>
 
@@ -114,7 +117,7 @@ export default function DestinationScreen() {
           </Text>
           <View className="flex-row justify-between mx-1">
             <View className="flex-row space-x-2 items-start">
-              <FontAwesome name="clock-o" size={wp(7)} color={"skyblue"} />
+              <FontAwesome name="clock-o" size={wp(7)} color={'skyblue'} />
               <View className="flex space-y-2">
                 <Text
                   style={{ fontSize: wp(4.5) }}
@@ -127,7 +130,7 @@ export default function DestinationScreen() {
             </View>
 
             <View className="flex-row space-x-2 items-start">
-              <FontAwesome name="map" size={wp(7)} color={"#f87171"} />
+              <FontAwesome name="map" size={wp(7)} color={'#f87171'} />
               <View className="flex space-y-2">
                 <Text
                   style={{ fontSize: wp(4.5) }}
@@ -140,7 +143,7 @@ export default function DestinationScreen() {
             </View>
 
             <View className="flex-row space-x-2 items-start">
-              <FontAwesome name="sun-o" size={wp(7)} color={"orange"} />
+              <FontAwesome name="sun-o" size={wp(7)} color={'orange'} />
               <View className="flex space-y-2">
                 <Text
                   style={{ fontSize: wp(4.5) }}
@@ -149,9 +152,9 @@ export default function DestinationScreen() {
                   {destination.weather}
                 </Text>
                 <Text className="text-neutral-600 tracking-wide">
-                  {Number(destination.weather.split(" ")[0]) > 25
-                    ? "Sunny"
-                    : "Cold"}
+                  {Number(destination.weather.split(' ')[0]) > 25
+                    ? 'Sunny'
+                    : 'Cold'}
                 </Text>
               </View>
             </View>
@@ -160,7 +163,7 @@ export default function DestinationScreen() {
 
         <TouchableOpacity
           style={{
-            backgroundColor: theme.bg("0.8"),
+            backgroundColor: theme.bg('0.8'),
             height: wp(15),
             width: wp(50),
           }}

@@ -1,15 +1,15 @@
-import { Loading } from "@/components/Loading";
-import { DestinationType } from "@/types";
-import { useFocusEffect } from "expo-router";
-import { useCallback, useEffect, useState } from "react";
-import { Text, View } from "react-native";
-import { getDestinations } from "../axios";
+import { Loading } from '@/components/Loading';
+import { DestinationType } from '@/types';
+import { useFocusEffect } from 'expo-router';
+import { useCallback, useEffect, useState } from 'react';
+import { Text, View } from 'react-native';
+import { getDestinations } from '../axios';
 import {
   matchCategoryDestinations,
   matchSearchDestinations,
   matchTagDestinations,
-} from "../lib";
-import { DestinationCard } from "./Card";
+} from '../lib';
+import { DestinationCard } from './Card';
 
 export type DestinationListProps = {
   search?: string;
@@ -27,19 +27,16 @@ export function DestinationsList({
     useState<DestinationType[]>(allDestinations);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const getDestinationData = () => {
-    setLoading(true);
+  const getDestinationData = () =>
     getDestinations()
       .then((data) => setAllDestinations(data))
-      .catch((err) => console.log(err))
-      .finally(() => setLoading(false));
-  };
+      .catch((err) => console.log(err));
 
   useEffect(() => {
     const searchFilter = matchSearchDestinations(allDestinations, search);
     const categoryFilter = matchCategoryDestinations(
       searchFilter,
-      activeCategory,
+      activeCategory
     );
     const tagFilter = matchTagDestinations(categoryFilter, activeTag);
 
@@ -48,8 +45,9 @@ export function DestinationsList({
 
   useFocusEffect(
     useCallback(() => {
-      getDestinationData();
-    }, []),
+      setLoading(true);
+      getDestinationData().finally(() => setLoading(false));
+    }, [])
   );
 
   return (
@@ -57,18 +55,19 @@ export function DestinationsList({
       {loading && <Loading />}
       {!loading && displayedDestinations.length === 0 && (
         <View className="flex items-center w-full">
-          <Text className="text-lg">Sem correspondências para a pesquisa</Text>
+          <Text className="text-lg">Sem resultados</Text>
         </View>
       )}
-      {displayedDestinations.map((item, index) => {
-        return (
-          <DestinationCard
-            onChangeFavorite={getDestinationData}
-            item={item}
-            key={index}
-          />
-        );
-      })}
+      {!loading &&
+        displayedDestinations.map((item, index) => {
+          return (
+            <DestinationCard
+              onChangeFavorite={getDestinationData}
+              item={item}
+              key={index}
+            />
+          );
+        })}
     </View>
   );
 }

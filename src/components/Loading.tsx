@@ -1,6 +1,5 @@
-import { Feather } from "@expo/vector-icons";
-import React from "react";
-import { Text, View } from "react-native";
+import React from 'react';
+import { Text, View } from 'react-native';
 
 export function Loading() {
   // const [spinValue] = useState(new Animated.Value(0));
@@ -21,7 +20,7 @@ export function Loading() {
 
   return (
     <View className="flex items-center justify-center flex-row gap-x-2 w-full h-full">
-      <Feather className="animate-spin" name="loader" size={32} />
+      {/* <Feather className="animate-spin" name="loader" size={32} /> */}
       {/* <Animated.Image */}
       {/*   style={[{ transform: spin }]} */}
       {/*   source={} */}
